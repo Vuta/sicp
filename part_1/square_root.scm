@@ -1,3 +1,6 @@
+;; Square root method by Newton
+;; Can be applied with general purpose
+
 (define (abs x)
   (if (> x 0) x (- x))
 )
