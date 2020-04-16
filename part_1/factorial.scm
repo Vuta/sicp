@@ -5,4 +5,16 @@
   )
 )
 
-(fac-recur 5)
+(fac-recur 6)
+
+(define (fac-iter n)
+  (define (iter product counter n)
+    (if (= counter n)
+        (* product counter)
+        (iter (* product counter) (+ counter 1) n)
+    )
+  )
+  (iter 1 1 n)
+)
+
+(fac-iter 6)
