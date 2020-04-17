@@ -32,3 +32,10 @@
   )
   (* 4.0 (product transform 1 inc n))
 )
+
+(define (product-recur term a next b)
+  (if (> a b)
+      1
+      (* (term a) (product-recur term (next a) next b))
+  )
+)
