@@ -22,3 +22,13 @@
 )
 
 (factorial 5)
+
+(define (appr_pi n)
+  (define (transform n)
+    (if (even? n)
+        (/ (+ n 2) (+ n 1))
+        (/ (+ n 1) (+ n 2))
+    )
+  )
+  (* 4.0 (product transform 1 inc n))
+)
