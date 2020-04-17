@@ -24,3 +24,9 @@
 )
 
 (sqrt 2)
+
+(define (phi)
+  (fix-point (lambda (x) (+ 1 (/ 1 x))) 1.0)
+)
+
+(phi)
