@@ -34,3 +34,19 @@
 (phi)
 
 (fix-point (lambda (x) (/ (+ (log 1000) (* x (log x))) (* 2 (log x)))) 2.0)
+
+(define (average-damp f)
+  (lambda (x) (average x (f x)))
+)
+
+(define (sqrt y)
+  (fix-point (average-damp (lambda (x) (/ y x))) 1.0)
+)
+
+(sqrt 2)
+
+(define (cube y) 
+  (fix-point (average-damp (lambda (x) (/ x (square y)))) 1)
+)
+
+(cube 3)
