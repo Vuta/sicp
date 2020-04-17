@@ -17,3 +17,9 @@
 )
 
 (product identity 1 inc 5)
+
+(define (sum term a next b)
+  (accu + 0 term a next b)
+)
+
+(sum identity 1 inc 5)
