@@ -20,3 +20,18 @@
 )
 
 (expo-iter 2 4)
+
+(define (expo-succ a n)
+  (define (square x)
+    (* x x)
+  )
+  (define (even? n)
+    (= 0 (remainder n 2))
+  )
+  (if (even? n)
+      (square (expo a (/ n 2)))
+      (* a (expo a (- n 1)))
+  )
+)
+
+(expo-succ 3 4)
