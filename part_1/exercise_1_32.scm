@@ -23,3 +23,13 @@
 )
 
 (sum identity 1 inc 5)
+
+(define (accu-recur combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner
+        (term a)
+        (accu-recur combiner null-value term (next a) next b)
+      )
+  )
+)
