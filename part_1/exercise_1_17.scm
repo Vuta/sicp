@@ -12,8 +12,16 @@
       (else (iter (+ acc a) a (- b 1)))
     )
   )
+  ;; this is iterative process
 
   (iter 0 a b)
+
+  ;; (cond
+  ;;   ((= b 0) 0)
+  ;;   ((even? b) (fast-mul (double a) (halve b)))
+  ;;   (else (+ a (fast-mul a (- b 1))))
+  ;; )
+  ;; this is recursive process
 )
 
 (fast-mul 4 6)
