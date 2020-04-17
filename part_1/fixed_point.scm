@@ -6,6 +6,8 @@
   (define (good-enough? x y) (< (abs (- x y)) 0.00001))
   (define (try guess)
     (let ((next (f guess)))
+      (newline)
+      (display next)
       (if (good-enough? guess next)
           next
           (try next)
@@ -30,3 +32,5 @@
 )
 
 (phi)
+
+(fix-point (lambda (x) (/ (+ (log 1000) (* x (log x))) (* 2 (log x)))) 2.0)
