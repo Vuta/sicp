@@ -35,3 +35,20 @@
 )
 
 (expo-succ 3 4)
+
+(define (expo-succ-iter a n)
+  (define (even? n)
+    (= 0 (remainder n 2))
+  )
+  (define (iter acc a counter)
+    (cond
+      ((= counter 0) acc)
+      ((even? counter) (iter acc (* a a) (/ counter 2)))
+      (else (iter (* acc a) a (- counter 1)))
+    )
+  )
+
+  (iter 1 a n)
+)
+
+(expo-succ-iter 3 4)
