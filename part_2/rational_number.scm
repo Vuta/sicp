@@ -5,7 +5,10 @@
 
 (define (make-rat n d)
   (let ((a (gcd n d)))
-    (cons (/ n a) (/ d a))))
+    (if (and (positive? (/ n a))
+             (negative? (/ d a)))
+        (cons (/ (- n) a) (/ (- d) a))
+        (cons (/ n a) (/ d a)))))
 
 (define (numer x)
   (car x))
