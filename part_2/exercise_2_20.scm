@@ -1,0 +1,13 @@
+(define (same-parity . nums)
+  (define first (car nums))
+  (define (iter li result)
+    (if (null? li)
+        result
+        (if (even? (+ first (car li)))
+            (iter (cdr li) (append result (list (car li))))
+            (iter (cdr li) result)
+        )
+    )
+  )
+  (iter (cdr nums) (list first))
+)
