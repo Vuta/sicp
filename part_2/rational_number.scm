@@ -4,11 +4,12 @@
       (gcd d (remainder n d))))
 
 (define (make-rat n d)
-  (let ((a (gcd n d)))
-    (if (and (positive? (/ n a))
-             (negative? (/ d a)))
-        (cons (/ (- n) a) (/ (- d) a))
-        (cons (/ n a) (/ d a)))))
+  (define (build n d)
+    (let ((a (abs (gcd n d))))
+      (cons (/ n a) (/ d a))))
+  (if (negative? d)
+      (build (- n) (- d))
+      (build n d)))
 
 (define (numer x)
   (car x))
