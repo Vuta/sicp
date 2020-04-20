@@ -7,3 +7,13 @@
   )
   (iter li ())
 )
+
+(define nil '())
+(define (deep-reverse li)
+  (cond ((null? li) nil)
+        ((pair? (car li))
+          (append (deep-reverse (cdr li)) (list (deep-reverse (car li))))
+        )
+        (else (append (deep-reverse (cdr li)) (list (car li))))
+  )
+)
