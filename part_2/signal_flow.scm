@@ -7,3 +7,12 @@
 )
 
 (filter odd? '(1 2 3 4))
+
+(define (accumulate operator inital items)
+  (if (null? items)
+      inital
+      (operator (car items) (accumulate operator inital (cdr items)))
+  )
+)
+
+(accumulate + 0 '(1 2 3 4))
