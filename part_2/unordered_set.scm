@@ -4,3 +4,10 @@
         (else (element-of-set? (cdr set) x))
   )
 )
+
+(define (adjoin-set x set)
+  (if (element-of-set? set x)
+      set 
+      (cons x set)
+  )
+)
