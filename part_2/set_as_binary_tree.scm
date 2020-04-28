@@ -5,3 +5,11 @@
 
 (make-tree 7 (make-tree 3 (make-tree 1 '() '()) (make-tree 5 '() '())) (make-tree 9 '() (make-tree 11 '() '())))
 ; (7 (3 (1 () ()) (5 () ())) (9 () (11 () ())))
+
+(define (element-of-set? x set)
+  (cond ((null? set) false)
+        ((= x (entry set)) true)
+        ((< x (entry set)) (element-of-set? x (left-branch set)))
+        (else (element-of-set? x (right-branch set)))
+  )
+)
