@@ -28,3 +28,11 @@
         (else (cons (car s1) (union-set (cdr s1) s2)))
   )
 )
+
+(define (adjoin-set-dup x set)
+  (cons x set)
+)
+
+(define (union-set-dup s1 s2)
+  (append s1 s2)
+)
