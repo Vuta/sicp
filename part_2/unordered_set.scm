@@ -11,3 +11,11 @@
       (cons x set)
   )
 )
+
+(define (intersection-set s1 s2)
+  (cond ((or (null? s1) (null? s2)) '())
+        ((element-of-set? s2 (car s1))
+         (cons (car s1) (intersection-set (cdr s1) s2)))
+        (else (intersection-set (cdr s1) s2))
+  )
+)
