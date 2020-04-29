@@ -1,38 +1,3 @@
-(make-from-real-imag (real-part z) (imag-part z))
-(make-from-mag-ang (magnitude z) (angle z))
-
-(define (add-complex z1 z2)
-  (make-from-real-imag
-    (+ (real-part z1) (real-part z2))
-    (+ (imag-part z1) (imag-part z2))
-  )
-)
-
-(define (sub-complex z1 z2)
-  (make-from-real-imag
-    (- (real-part z1) (real-part z2))
-    (- (imag-part z1) (imag-part z2))
-  )
-)
-
-(define (mul-complex z1 z2)
-  (make-from-mag-ang
-    (* (magitude z1) (magnitude z2))
-    (+ (angle z1) (angle z2))
-  )
-)
-
-(define (div-complex z1 z2)
-  (make-from-mag-ang
-    (/ (magitude z1) (magnitude z2))
-    (- (angle z1) (angle z2)) 
-  )
-)
-
-(define (attach-tag type-tag contents)
-  (cons type-tag contents)
-)
-
 (define (type-tag datum)
   (if (pair? datum)
       (car datum)
@@ -47,6 +12,11 @@
   )
 )
 
+(define (attach-tag type-tag contents)
+  (cons type-tag contents)
+)
+
+
 (define (rectangular? z)
   (eq? (type-tag z) 'rectangular)
 )
@@ -57,14 +27,14 @@
 
 (define (real-part-rectangular z) (car z))
 (define (imag-part-rectangular z) (cdr z))
-(define (magnitude-part-rectangular z)
+(define (magnitude-rectangular z)
   (sqrt
     (+ (square (real-part-rectangular z))
        (square (imag-part-rectangualr z))
     )
   )
 )
-(define (angle-part-rectangular z)
+(define (angle-rectangular z)
   (atan (imag-part-rectangular z) (real-part-rectangular z))
 )
 
@@ -92,4 +62,63 @@
 )
 (define (make-from-mag-ang-polar r a)
   (attach-tag 'polar (cons r a))
+)
+
+(define (real-part z)
+  (cond ((rectangular? z) (real-part-rectangular (contents z)))
+        ((polar? z) (real-part-polar (contents z)))
+        (else (error "Unknown type: REAL-TAG" z))
+  )
+)
+
+(define (imag-part z)
+  (cond ((rectangular? z) (imag-part-rectangular (contents z)))
+        ((polar? z) (imag-part-polar (contents z)))
+        (else (error "Unknown type: IMAG-TAG" z))
+  )
+)
+
+(define (magnitude z)
+  (cond ((polar? z) (magnitude-polar (contents z)))
+        ((rectangular? z) (magnitude-rectangular (contents z)))
+        (else (error "Unknown type: MAGNITUDE" z))
+  )
+)
+
+(define (angle z)
+  (cond ((polar? z) (angle-polar (contents z)))
+        ((rectangular? z) (angle-rectangular (contenst z)))
+        (else (error "Unknown type: ANGLE" z))
+  )
+)
+
+(define (make-from-real-imag x y) (make-from-real-imag-rectangular x y))
+(define (make-from-mag-ang r a) (make-from-mag-ang-polar r a))
+
+(define (add-complex z1 z2)
+  (make-from-real-imag
+    (+ (real-part z1) (real-part z2))
+    (+ (imag-part z1) (imag-part z2))
+  )
+)
+
+(define (sub-complex z1 z2)
+  (make-from-real-imag
+    (- (real-part z1) (real-part z2))
+    (- (imag-part z1) (imag-part z2))
+  )
+)
+
+(define (mul-complex z1 z2)
+  (make-from-mag-ang
+    (* (magitude z1) (magnitude z2))
+    (+ (angle z1) (angle z2))
+  )
+)
+
+(define (div-complex z1 z2)
+  (make-from-mag-ang
+    (/ (magitude z1) (magnitude z2))
+    (- (angle z1) (angle z2)) 
+  )
 )
