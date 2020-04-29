@@ -1,4 +1,8 @@
 (define (make-account balance pw)
+  (define times-call 0)
+  (define (inc-fail-count) (set! times-call (+ times-call 1)))
+  (define (reset-fail-count) (set! times-call 0))
+
   (define (current-balance) balance)
 
   (define (withdraw amount)
@@ -20,8 +24,14 @@
 
   (define (dispatch confirm m)
     (if (eq? confirm pw)
-        (process m)
-        (lambda (amount) "Incorrect Password")))
+        (begin
+          (reset-fail-count)
+          (process m))
+        (begin
+          (cond ((< times-call 6)
+                  (inc-fail-count)
+                  (lambda (amount) "Incorrect Password"))
+                (else (lambda (cops) "I'm calling the cops"))))))
 
   dispatch)
 
@@ -29,4 +39,10 @@
 
 ((acc 'my-pass 'deposit) 100)
 ((acc 'my-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
+((acc 'invalid-pass 'withdraw) 50)
 ((acc 'invalid-pass 'withdraw) 50)
