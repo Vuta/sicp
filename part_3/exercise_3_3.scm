@@ -20,6 +20,7 @@
     (cond ((eq? m 'withdraw) withdraw)
           ((eq? m 'deposit) deposit)
           ((eq? m 'balance) current-balance)
+          ((eq? m 'valid-pass?) (lambda (x) true))
           (else (error "Unknown request: MAKE-ACCOUNT" m))))
 
   (define (dispatch confirm m)
@@ -37,12 +38,20 @@
 
 (define acc (make-account 0 'my-pass))
 
-((acc 'my-pass 'deposit) 100)
-((acc 'my-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
-((acc 'invalid-pass 'withdraw) 50)
+(define (make-joint acc pass new-pass)
+  (define valid? (acc pass 'valid-pass?))
+  (cond ((eq? (valid? 'x) true) (make-account ((acc pass 'balance)) new-pass))
+        (else "Invalid")))
+
+; ((acc 'my-pass 'deposit) 100)
+; ((acc 'my-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+; ((acc 'invalid-pass 'withdraw) 50)
+;((acc 'invalid-pass 'withdraw) 50)
+
+(define peter-acc (make-account 0 'my-pass))
+(define paul-acc (make-joint peter-acc 'invalid-pass 'new-pass))
