@@ -15,3 +15,5 @@
         (set-cdr! record value)
         (set-cdr! table (cons (cons key value) (cdr table)))))
   'ok)
+
+(define (make-table) (list '*table*))
